@@ -1,13 +1,13 @@
 import { Container } from 'react-bootstrap';
 import Footer from './components/common/Footer';
 import { Switch, Route } from 'react-router-dom';
-import Buildings from './components/pages/buildings/Buildings';
-import Home from './components/pages/home/Home';
+import Buildings from './components/pages/Buildings';
+import Home from './components/pages/Home';
 
 function App() {
   return (
     <Container>
-      <div className="my-4">
+      <div>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/buildings" component={Buildings} />

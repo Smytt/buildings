@@ -3,12 +3,13 @@ import { Modal, Button } from 'react-bootstrap';
 import { BuildingContext } from '../../providers/BuildingProvider';
 
 type Props = {
+  variant?: string
   buttonText: string;
   modalTitle: string;
   handleSubmit: () => void;
 }
 
-const ButtonWithModal: React.FC<Props> = ({ buttonText, modalTitle, handleSubmit, children }) => {
+const ButtonWithModal: React.FC<Props> = ({ variant, buttonText, modalTitle, handleSubmit, children }) => {
 
   const [showModal, setShowModal] = useState(false)
 
@@ -22,11 +23,15 @@ const ButtonWithModal: React.FC<Props> = ({ buttonText, modalTitle, handleSubmit
   }
 
   const handleCloseModal = () => {
+    setShowModal(false);
+  }
+
+  const handleOpenModal = () => {
     dispatchBuilding({
       errors: {},
       buildingData: { ...originalBuilding }
     })
-    setShowModal(false);
+    setShowModal(true)
   }
 
   const handleModalSubmit = () => {
@@ -36,7 +41,7 @@ const ButtonWithModal: React.FC<Props> = ({ buttonText, modalTitle, handleSubmit
 
   return (
     <>
-      <Button variant="success" onClick={() => setShowModal(true)}>{buttonText}</Button>
+      <Button variant={variant || 'primary'} onClick={handleOpenModal}>{buttonText}</Button>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header>
           <Modal.Title>{modalTitle}</Modal.Title>

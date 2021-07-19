@@ -1,27 +1,30 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap"
-import BuildingProvider from "../../../providers/BuildingProvider";
-import { IBuilding } from "../../../types";
-import { buildings_mock } from "../../../_mockData/buildings";
-import { RESPONSE_TIME } from "../../../_mockData/constants";
-import Building from "../../common/Building";
-import BuildingForm from "../../forms/BuildingForm";
-import ButtonWithModal from "../../shared/ButtonWithModal";
+import BuildingProvider from "../../providers/BuildingProvider";
+import { IBuilding } from "../../types";
+import { fetchBuildings } from "../../utils";
+import Building from "../common/Building";
+import Header from "../common/Header";
+import NewBuildingDialog from "../shared/NewBuildingDialog";
 
-import './buildings.css';
 
 const Buildings = () => {
 
+  const [loading, setLoading] = useState(true)
   const [buildings, setBuildings] = useState<IBuilding[]>([])
 
   useEffect(() => {
-    setTimeout(() => {
-      setBuildings(buildings_mock)
-    }, RESPONSE_TIME);
+    fetchBuildings().then(buildings => {
+      setBuildings(buildings);
+      setLoading(false)
+    })
   }, [])
 
-  const handleSubmit = () => {
-
+  const handleSubmit = (id: string, building: IBuilding) => {
+    setBuildings([
+      ...buildings,
+      building
+    ])
   }
 
   const handleDelete = (id: string) => {
@@ -29,7 +32,7 @@ const Buildings = () => {
   }
 
   const handleUpdate = (id: string, building: IBuilding) => {
-    const index = buildings.findIndex(building => building.id === id) 
+    const index = buildings.findIndex(building => building.id === id)
     const newBuildings = [...buildings];
     newBuildings[index] = building;
     setBuildings([...newBuildings])
@@ -37,11 +40,10 @@ const Buildings = () => {
 
   return (
     <div>
-      <div className="mb-2">
+      <Header />
+      <div className="mb-2 text-end">
         <BuildingProvider>
-          <ButtonWithModal buttonText="+" handleSubmit={handleSubmit} modalTitle="Add building">
-            <BuildingForm />
-          </ButtonWithModal>
+          <NewBuildingDialog handleSubmit={handleSubmit} />
         </BuildingProvider>
       </div>
       <Table striped bordered hover>
@@ -59,13 +61,16 @@ const Buildings = () => {
           {
             buildings?.map(building =>
               <BuildingProvider building={building} key={building.id}>
-                <Building                  
+                <Building
                   building={building}
                   handleDelete={handleDelete}
                   handleUpdate={handleUpdate}
                 />
               </BuildingProvider>
             )
+          }
+          {
+            loading && <h2>loading...</h2>
           }
         </tbody>
       </Table>

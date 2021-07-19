@@ -1,9 +1,8 @@
 import { IBuilding } from "../../types";
-import * as Icon from 'react-bootstrap-icons';
-import { Button, ButtonGroup } from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap";
 import BuildingForm from "../forms/BuildingForm";
 import ButtonWithModal from "../shared/ButtonWithModal";
-import BuildingProvider, { BuildingContext } from "../../providers/BuildingProvider";
+import { BuildingContext } from "../../providers/BuildingProvider";
 import { useContext } from "react";
 
 type Props = {
@@ -14,7 +13,7 @@ type Props = {
 
 const Building: React.FC<Props> = ({ building, handleDelete, handleUpdate }) => {
   const { id, name, area, location, image } = building;
-  
+
   const { buildingData } = useContext(BuildingContext)
 
   return (
@@ -36,10 +35,12 @@ const Building: React.FC<Props> = ({ building, handleDelete, handleUpdate }) => 
       </td>
       <td>
         <ButtonGroup>
-            <ButtonWithModal buttonText="Edit" handleSubmit={() => handleUpdate(building.id!, buildingData)} modalTitle={`Edit ${building.name}`}>
-              <BuildingForm />
-            </ButtonWithModal>
-            <Button variant="danger" onClick={() => handleDelete(building.id!)}>Delete</Button>
+          <ButtonWithModal variant="success" buttonText="Edit" handleSubmit={() => handleUpdate(building.id!, buildingData)} modalTitle={`Edit ${building.name}`}>
+            <BuildingForm />
+          </ButtonWithModal>
+          <ButtonWithModal variant="danger" buttonText="Delete" handleSubmit={() => handleDelete(building.id!)} modalTitle={`Delete ${building.name}?`}>
+            <p>{`Are you sure you want to delete ${building.name}?`}</p>
+          </ButtonWithModal>
         </ButtonGroup>
       </td>
     </tr>

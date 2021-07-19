@@ -21,7 +21,7 @@ export const setId = (payload: string): BuildingFormState => {
 }
 
 export const setName = (payload: string): BuildingFormState => {
-  if (payload.length > 3)
+  if (payload.length > 2)
     return {
       errors: {
         name: undefined
