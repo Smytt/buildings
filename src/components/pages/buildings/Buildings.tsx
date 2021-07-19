@@ -58,9 +58,8 @@ const Buildings = () => {
         <tbody>
           {
             buildings?.map(building =>
-              <BuildingProvider building={building}>
-                <Building
-                  key={building.id}
+              <BuildingProvider building={building} key={building.id}>
+                <Building                  
                   building={building}
                   handleDelete={handleDelete}
                   handleUpdate={handleUpdate}
