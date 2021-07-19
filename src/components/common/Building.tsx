@@ -2,7 +2,7 @@ import { IBuilding } from "../../types";
 import { ButtonGroup } from "react-bootstrap";
 import BuildingForm from "../forms/BuildingForm";
 import ButtonWithModal from "../shared/ButtonWithModal";
-import { BuildingContext } from "../../providers/BuildingProvider";
+import { BuildingFormContext } from "../../providers/BuildingFormProvider";
 import { useContext } from "react";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 const Building: React.FC<Props> = ({ building, handleDelete, handleUpdate }) => {
   const { id, name, area, location, image } = building;
 
-  const { buildingData } = useContext(BuildingContext)
+  const { buildingData } = useContext(BuildingFormContext)
 
   return (
     <tr key={id}>

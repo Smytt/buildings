@@ -1,8 +1,7 @@
 import { IBuilding } from "../../types";
-import { ButtonGroup } from "react-bootstrap";
 import BuildingForm from "../forms/BuildingForm";
 import ButtonWithModal from "./ButtonWithModal";
-import { BuildingContext } from "../../providers/BuildingProvider";
+import { BuildingFormContext } from "../../providers/BuildingFormProvider";
 import { useContext } from "react";
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
 
 const NewBuildingDialog: React.FC<Props> = ({ handleSubmit }) => {
 
-  const { buildingData } = useContext(BuildingContext)
+  const { buildingData } = useContext(BuildingFormContext)
 
   return (
     <ButtonWithModal buttonText="+" handleSubmit={() => handleSubmit(buildingData.id, buildingData)} modalTitle="Add building">

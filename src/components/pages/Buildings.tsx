@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap"
-import BuildingProvider from "../../providers/BuildingProvider";
+import BuildingFormProvider from "../../providers/BuildingFormProvider";
 import { IBuilding } from "../../types";
 import { fetchBuildings } from "../../utils";
 import Building from "../common/Building";
@@ -42,9 +42,9 @@ const Buildings = () => {
     <div>
       <Header />
       <div className="mb-2 text-end">
-        <BuildingProvider>
+        <BuildingFormProvider>
           <NewBuildingDialog handleSubmit={handleSubmit} />
-        </BuildingProvider>
+        </BuildingFormProvider>
       </div>
       <Table striped bordered hover>
         <thead>
@@ -60,13 +60,13 @@ const Buildings = () => {
         <tbody>
           {
             buildings?.map(building =>
-              <BuildingProvider building={building} key={building.id}>
+              <BuildingFormProvider building={building} key={building.id}>
                 <Building
                   building={building}
                   handleDelete={handleDelete}
                   handleUpdate={handleUpdate}
                 />
-              </BuildingProvider>
+              </BuildingFormProvider>
             )
           }
           {

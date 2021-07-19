@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { BuildingContext } from '../../providers/BuildingProvider';
+import { BuildingFormContext } from '../../providers/BuildingFormProvider';
 
 type Props = {
   variant?: string
@@ -13,7 +13,7 @@ const ButtonWithModal: React.FC<Props> = ({ variant, buttonText, modalTitle, han
 
   const [showModal, setShowModal] = useState(false)
 
-  const { errors, buildingData, originalBuilding, dispatchBuilding } = useContext(BuildingContext)
+  const { errors, buildingData, originalBuilding, dispatchBuildingForm } = useContext(BuildingFormContext)
 
   const shouldDisableSubmit = () => {
     if (!buildingData.id || !buildingData.name || !buildingData.area)
@@ -27,7 +27,7 @@ const ButtonWithModal: React.FC<Props> = ({ variant, buttonText, modalTitle, han
   }
 
   const handleOpenModal = () => {
-    dispatchBuilding({
+    dispatchBuildingForm({
       errors: {},
       buildingData: { ...originalBuilding }
     })

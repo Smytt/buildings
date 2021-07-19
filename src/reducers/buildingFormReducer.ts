@@ -1,13 +1,4 @@
-import { IBuilding } from "../types";
-
-export type BuildingFormState = {
-  errors?: {
-    id?: string;
-    name?: string;
-    area?: string;
-  }
-  buildingData?: IBuilding
-}
+import { BuildingFormState, IBuilding } from "../types";
 
 export const buildingFormReducer = (state: BuildingFormState, payload: any): BuildingFormState => {
   return {

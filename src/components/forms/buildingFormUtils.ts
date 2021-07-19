@@ -1,4 +1,4 @@
-import { BuildingFormState } from "../../reducers/buildingFormReducer"
+import { BuildingFormState } from "../../types"
 
 export const setId = (payload: string): BuildingFormState => {
   if (payload.length > 0)

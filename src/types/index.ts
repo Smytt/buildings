@@ -5,3 +5,12 @@ export type IBuilding = {
   location?: string,
   image?: string
 }
+
+export type BuildingFormState = {
+  errors?: {
+    id?: string;
+    name?: string;
+    area?: string;
+  }
+  buildingData?: IBuilding
+}

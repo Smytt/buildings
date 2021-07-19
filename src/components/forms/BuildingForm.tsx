@@ -1,9 +1,8 @@
-import { useContext, useReducer } from "react";
+import { useContext } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { setArea, setId, setImage, setLocation, setName } from "./buildingFormUtils";
-import { buildingFormReducer } from "../../reducers/buildingFormReducer";
 import { IBuilding } from "../../types";
-import { BuildingContext } from "../../providers/BuildingProvider";
+import { BuildingFormContext } from "../../providers/BuildingFormProvider";
 
 type Props = {
   building?: IBuilding
@@ -11,7 +10,7 @@ type Props = {
 
 const BuildingForm: React.FC<Props> = () => {
 
-  const { errors, buildingData, dispatchBuilding } = useContext(BuildingContext)
+  const { errors, buildingData, dispatchBuildingForm } = useContext(BuildingFormContext)
 
   const { id, name, area, location, image } = buildingData as IBuilding;
 
@@ -22,7 +21,7 @@ const BuildingForm: React.FC<Props> = () => {
           ID *
         </Form.Label>
         <Col sm="9">
-          <Form.Control type="plaintext" value={id || ''} onChange={(e) => dispatchBuilding(setId(e.target.value))} />
+          <Form.Control type="plaintext" value={id || ''} onChange={(e) => dispatchBuildingForm(setId(e.target.value))} />
         </Col>
         {
           errors?.id && <p className="text-danger">{errors.id}</p>
@@ -34,7 +33,7 @@ const BuildingForm: React.FC<Props> = () => {
           Name *
         </Form.Label>
         <Col sm="9">
-          <Form.Control type="plaintext" value={name || ''} onChange={(e) => dispatchBuilding(setName(e.target.value))} />
+          <Form.Control type="plaintext" value={name || ''} onChange={(e) => dispatchBuildingForm(setName(e.target.value))} />
         </Col>
         {
           errors?.name && <p className="text-danger">{errors.name}</p>
@@ -46,7 +45,7 @@ const BuildingForm: React.FC<Props> = () => {
           Area *
         </Form.Label>
         <Col sm="9">
-          <Form.Control type="number" value={area || ''} onChange={(e) => dispatchBuilding(setArea(+e.target.value))} />
+          <Form.Control type="number" value={area || ''} onChange={(e) => dispatchBuildingForm(setArea(+e.target.value))} />
         </Col>
         {
           errors?.area && <p className="text-danger">{errors.area}</p>
@@ -58,7 +57,7 @@ const BuildingForm: React.FC<Props> = () => {
           Location
         </Form.Label>
         <Col sm="9">
-          <Form.Control type="plaintext" value={location || ''} onChange={(e) => dispatchBuilding(setLocation(e.target.value))} />
+          <Form.Control type="plaintext" value={location || ''} onChange={(e) => dispatchBuildingForm(setLocation(e.target.value))} />
         </Col>
       </Form.Group>
 
@@ -67,7 +66,7 @@ const BuildingForm: React.FC<Props> = () => {
           Image URL
         </Form.Label>
         <Col sm="9">
-          <Form.Control type="plaintext" value={image || ''} onChange={(e) => dispatchBuilding(setImage(e.target.value))} />
+          <Form.Control type="plaintext" value={image || ''} onChange={(e) => dispatchBuildingForm(setImage(e.target.value))} />
         </Col>
       </Form.Group>
     </Form>
